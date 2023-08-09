@@ -1,0 +1,38 @@
+<job  name="MCResponse" maxFilesPerProcess="10" fileListSyntax="paths" simulateSubmission ="false" >
+
+	<stdout URL="file:/gpfs01/star/pwg/prozorov/output/analysis/log/$JOBID.log" />
+	<stderr URL="file:/gpfs01/star/pwg/prozorov/output/analysis/log/$JOBID.err" />
+	<input URL="filelist:/gpfs01/star/pwg/prozorov/HFjets/analysis/embedding2016.list" nFiles="all" />
+
+
+	<command>
+
+	    
+	    mkdir /tmp/prozorov_${JOBID}
+		cd /tmp/prozorov_${JOBID}
+
+		cp -r /gpfs01/star/pwg/prozorov/HFjets/analysis/MCResponse.C .
+
+		cp -r /gpfs01/star/pwg/prozorov/HFjets/analysis/StRoot .
+		cp -r /gpfs01/star/pwg/prozorov/HFjets/analysis/.sl73_gcc485 .
+		cp -r /star/u/droy1/Y2019/STAR/FastJet .
+
+		ln -s /star/u/droy1/Y2019/STAR/FastJet/fastjet-install/include/fastjet
+        ln -s /star/u/droy1/Y2019/STAR/FastJet/fastjet-install/include/siscone
+
+		starver dev
+        setenv FASTJET FastJet/fastjet-install
+
+		root -b -q -l 'MCResponse.C( "'"$FILELIST"'", "'"${JOBID}.root"'", 1000000000, "'"${JOBID}"'" )'
+	    
+	    cp ${JOBID}.root /gpfs01/star/pwg/prozorov/output/analysis/out/.
+	    cp ${JOBID}_jets.root /gpfs01/star/pwg/prozorov/output/analysis/out/.
+
+	    rm -rf /tmp/prozorov_${JOBID}
+
+	</command>
+
+	<Generator> 
+ 		<Location>/gpfs01/star/pwg/prozorov/output/analysis/gen/</Location> 
+ 	</Generator> 
+</job>

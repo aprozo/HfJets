@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "MCResponse.C": "cpp",
+    "readPicoDst.C": "cpp",
+    "EfficiencyPlotter.C": "cpp",
+    "InclusivevD0.C": "cpp",
+    "vector": "cpp",
+    "readPicoDstQA.C": "cpp"
+  }
+}
